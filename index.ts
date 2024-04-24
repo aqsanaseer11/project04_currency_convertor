@@ -3,8 +3,11 @@
 import inquirer from "inquirer";
 import chalk from "chalk"
 
+//Curency convertor API link
 
 let apiLink = " https://v6.exchangerate-api.com/v6/4f2a66c46eb2a2b4affb7e4d/latest/USD"
+
+//Fetching Data
 
 let fetchData = async (data: any) => {
     let fetchData = await fetch(data);
@@ -14,7 +17,11 @@ let fetchData = async (data: any) => {
 
 let data = await fetchData(apiLink);
 
+//Object to array
+
 let countries = Object.keys(data);
+
+//user input first country
 
 let firstCountry = await inquirer.prompt({
     type: "list",
@@ -23,14 +30,17 @@ let firstCountry = await inquirer.prompt({
     choices: countries,
 
 })
-
 console.log(`${chalk.greenBright.bold(firstCountry.name)}`)
+
+//user input converting amount
 
 let userMoney = await inquirer.prompt({
     type: "number",
     name: "rupee",
-    message:`Please entere the amount in ${chalk.bgGreen.bold(firstCountry.name)}:`,
+    message: `Please entere the amount in ${chalk.bgGreen.bold(firstCountry.name)}:`,
 })
+
+//user input second country
 
 let scndCountry = await inquirer.prompt({
     type: "list",
@@ -39,6 +49,8 @@ let scndCountry = await inquirer.prompt({
     choices: countries,
 })
 console.log(`${chalk.greenBright.bold(scndCountry.name2)}`)
+
+//conversion rate
 
 let cnv = `https://v6.exchangerate-api.com/v6/4f2a66c46eb2a2b4affb7e4d/pair/${firstCountry.name}/${scndCountry.name2}`;
 
